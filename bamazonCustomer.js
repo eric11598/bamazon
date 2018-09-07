@@ -30,7 +30,7 @@ function queryAllData() {
 
     runSearch()
 }
-
+    
 
 function runSearch() {
     inquirer
@@ -50,13 +50,19 @@ function runSearch() {
 
         ])
         .then(function (answer) {
-            console.log("lol");
+
             var query = "SELECT product_name, price, stock_quantity FROM products WHERE ?";
             connection.query(query, { item_id: answer.id }, function (err, res) {
                 if (res.length === 0) {
-                    console.log("invalid id - try again!")
+                    console.log("invalid id -- enter a valid id!")
                     runSearch();
                 }
+
+                if(isNaN(answer.quantity))
+                {
+                    console.log("invalid quantity -- enter a valid quantity!")
+                    runSearch();
+                }  
                 else {
                     for (var i = 0; i < res.length; i++) {
                         console.log("Name: " + res[i].product_name);
@@ -65,6 +71,30 @@ function runSearch() {
                             console.log("Not enough stock! Only "+res[i].stock_quantity+" in stock!")
                             runSearch();
                         }
+
+                        else
+                        {
+                            var final_quantity = res[i].stock_quantity - answer.quantity;
+                            var final_price = answer.quantity*res[i].price;
+                            var query = connection.query(
+                                "UPDATE products SET ? WHERE ?",
+                                [
+                                  {
+                                    stock_quantity: final_quantity
+                                  },
+                                  {
+                                    item_id: answer.id
+                                  }
+                                ],
+                                function(err, res) {
+                                  console.log("products quantities updated!");
+                                  console.log("amount due: $"+Number(final_price).toFixed(2));
+                                  console.log("\n\n");
+                                }
+                              );
+                        }
+                        console.log(query.sql);
+                        queryAllData()
                     }
                 }
             });
