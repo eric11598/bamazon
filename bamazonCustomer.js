@@ -20,10 +20,25 @@ connection.connect(function (err) {
     queryAllData();
 });
 
+function formatString(object, length, currency)
+{
+    if(currency){
+        object = object.toFixed(2)
+    }
+    var string = JSON.stringify(object)
+    string = string.padEnd(length)
+
+    return string
+}
+
 function queryAllData() {
     connection.query("SELECT * FROM products", function (err, res) {
+        console.log("    ID     |     NAME       |     DEPARTMENT     |     PRICE     |  QUANTITY")
+        console.log("-----------------------------------------------------------------------------")
         for (var i = 0; i < res.length; i++) {
-            console.log(res[i].item_id + " | " + res[i].product_name + " | " + res[i].department_name + " | " + res[i].price + " | " + res[i].stock_quantity);
+            console.log("    "+formatString(res[i].item_id, 4) + "   |   " + formatString(res[i].product_name, 10) + "   |  " 
+              + formatString(res[i].department_name, 15) + "   |   " + formatString(res[i].price, 8, true) + "    |   " 
+              + formatString(res[i].stock_quantity, 5));
         }
         console.log("-");
 
@@ -75,7 +90,7 @@ function runSearch() {
                 {
                     name: "quantity",
                     type: "input",
-                    message: "And how much?",
+                    message: "How much of this product would you like to buy?",
                     validate: function validateID(name) {
                         var message = '';
                         if (isNaN(name))
