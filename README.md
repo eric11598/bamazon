@@ -22,7 +22,7 @@ npm i inquirer
 Linked in this readme are .mp4 files with walkthroughs on how each javascript application work
 
 ### Customer Features
-* [Video Walkthrough](https://drive.google.com/open?id=1_Fofi_XZQvs_TlYCUhIurFOQ7Ytla68z) - Hosted by Google
+* [Video Walkthrough](https://drive.google.com/open?id=181pAgZdzeUx8bLYLg5Yf3ud1GeigeF3m) - Hosted by Google
 
 * A custom built function to make a styled table in the console. Any additions to the table or changes in the existing values get auto formatted to fit the table
 
@@ -31,7 +31,14 @@ Linked in this readme are .mp4 files with walkthroughs on how each javascript ap
 
 ### Manager Features
 
-Explain how to run the automated tests for this system
+* [Video Walkthrough](https://drive.google.com/open?id=17FZmIPH3Or7blpWbTD2C30cCgOhukgdm) - Hosted by Google
+
+* A custom built function to make a styled table in the console. Any additions to the table or changes in the existing values get auto formatted to fit the table
+
+* Validation on all inputs
+
+* Adding inventory prompt uses an array of already exiting products
+
 
 ### Supervisor Features
 
